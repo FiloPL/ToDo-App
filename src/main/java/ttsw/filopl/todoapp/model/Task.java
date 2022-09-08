@@ -1,7 +1,9 @@
 package ttsw.filopl.todoapp.model;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 /**
  * Created by T. Filo Zegarlicki on 27.08.2022
@@ -17,6 +19,9 @@ public class Task {
     @NotBlank(message = "Task desc shouldnt`t be empty or null")
     private String description;
     private boolean done;
+
+    @Column(name = "deadLine")
+    private LocalDateTime deadline;
 
     public Task() {
     }

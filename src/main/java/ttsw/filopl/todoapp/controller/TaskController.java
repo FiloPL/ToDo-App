@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ttsw.filopl.todoapp.model.Task;
 import ttsw.filopl.todoapp.model.TaskRepository;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -64,6 +65,18 @@ class TaskController {
         }
         toUpdate.setId(id);
         taskRepository.save(toUpdate);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Transactional
+    @PatchMapping("/tasks/{id}")
+    public ResponseEntity<?> toggleTask(@PathVariable int id) {
+        if(taskRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        taskRepository.findById(id)
+                .ifPresent(task -> task.setDone(!task.isDone()));
+
         return ResponseEntity.noContent().build();
     }
 
