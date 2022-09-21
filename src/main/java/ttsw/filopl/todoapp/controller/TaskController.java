@@ -58,13 +58,16 @@ class TaskController {
     }
 
     @PutMapping("/tasks/{id}")
-    ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody Task toUpdate) {
+    ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate) {
         logger.info("Update resorcues");
         if(taskRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        toUpdate.setId(id);
-        taskRepository.save(toUpdate);
+        taskRepository.findById(id)
+                .ifPresent( task -> {
+                    task.updatedFrom(toUpdate);
+                    taskRepository.save(task);
+                });
         return ResponseEntity.noContent().build();
     }
 
@@ -79,5 +82,11 @@ class TaskController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/good")
+    public String answer() {
+        return "working";
+    }
+
 
 }

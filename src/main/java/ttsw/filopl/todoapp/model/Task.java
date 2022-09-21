@@ -1,6 +1,5 @@
 package ttsw.filopl.todoapp.model;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -10,6 +9,7 @@ import java.time.LocalDateTime;
  **/
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "tasks")
 public class Task {
 
@@ -19,9 +19,15 @@ public class Task {
     @NotBlank(message = "Task desc shouldnt`t be empty or null")
     private String description;
     private boolean done;
-
     @Column(name = "deadLine")
     private LocalDateTime deadline;
+
+    @Embedded
+    private Audit audit = new Audit();
+
+    @ManyToOne
+    //@Column(name = "task_group_id")
+    private TaskGroup group;
 
     public Task() {
     }
@@ -48,5 +54,28 @@ public class Task {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    TaskGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(TaskGroup group) {
+        this.group = group;
+    }
+
+    public void updatedFrom(final Task source) {
+        description = source.description;
+        done = source.done;
+        deadline = source.deadline;
+        group = source.group;
     }
 }
