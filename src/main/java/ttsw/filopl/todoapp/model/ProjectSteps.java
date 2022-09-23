@@ -2,34 +2,26 @@ package ttsw.filopl.todoapp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 /**
  * Created by T. Filo Zegarlicki on 21.09.2022
  **/
 
 @Entity
-@Table(name = "task_groups")
-public class TaskGroup {
+@Table(name = "project_steps")
+public class ProjectSteps {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Task groups shouldnt`t be empty or null")
+    @NotBlank(message = "Project steps shouldnt`t be empty or null")
     private String description;
-    private boolean done;
 
-    @Embedded
-    private Audit audit = new Audit();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
-    private Set<Task> tasks;
+    private int daysToDeadLine;
 
     @ManyToOne
-    //@Column(name = "projetct_id")
+    //@JoinColumn(name = "project_id");
     private Project project;
-
-    public TaskGroup() {
-    }
 
     public int getId() {
         return id;
@@ -47,27 +39,19 @@ public class TaskGroup {
         this.description = description;
     }
 
-    public boolean isDone() {
-        return done;
+    public int getDaysToDeadLine() {
+        return daysToDeadLine;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setDaysToDeadLine(int daysToDeadLine) {
+        this.daysToDeadLine = daysToDeadLine;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
-    }
-
-    void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    Project getProject() {
+    public Project getProject() {
         return project;
     }
 
-    void setProject(Project project) {
+    public void setProject(Project project) {
         this.project = project;
     }
 }

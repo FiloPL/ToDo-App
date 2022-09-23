@@ -1,8 +1,10 @@
-package ttsw.filopl.todoapp.model;
+package ttsw.filopl.todoapp.adapter;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import ttsw.filopl.todoapp.model.Task;
+import ttsw.filopl.todoapp.model.TaskRepository;
 
 /**
  * Created by T. Filo Zegarlicki on 27.08.2022
