@@ -12,7 +12,7 @@ public class GroupTaskReadModel {
     private String description;
     private LocalDateTime deadline;
 
-    GroupTaskReadModel(Task source) {
+    public GroupTaskReadModel(Task source) {
         description = source.getDescription();
         deadline = source.getDeadline();
     }
