@@ -1,9 +1,11 @@
 package ttsw.filopl.todoapp.logic;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 import ttsw.filopl.todoapp.TaskConfigurationProperties;
-import ttsw.filopl.todoapp.model.*;
+import ttsw.filopl.todoapp.model.Project;
+import ttsw.filopl.todoapp.model.ProjectRepository;
+import ttsw.filopl.todoapp.model.Task;
+import ttsw.filopl.todoapp.model.TaskGroupRepository;
 import ttsw.filopl.todoapp.model.projection.GroupReadModel;
 import ttsw.filopl.todoapp.model.projection.GroupTaskReadModel;
 import ttsw.filopl.todoapp.model.projection.GroupWriteModel;
