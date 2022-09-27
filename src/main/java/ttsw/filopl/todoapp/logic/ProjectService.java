@@ -25,6 +25,14 @@ public class ProjectService {
     private TaskConfigurationProperties config;
     private TaskGroupService taskGroupService;
 
+
+    public ProjectService(final ProjectRepository projectRepository, final
+    TaskGroupRepository taskGroupRepository, final TaskConfigurationProperties config) {
+        this.projectRepository = projectRepository;
+        this.taskGroupRepository = taskGroupRepository;
+        this.config = config;
+    }
+
     public ProjectService(final ProjectRepository projectRepository, final TaskGroupRepository taskGroupRepository, final TaskConfigurationProperties config, final TaskGroupService taskGroupService) {
         this.projectRepository = projectRepository;
         this.taskGroupRepository = taskGroupRepository;
@@ -46,7 +54,7 @@ public class ProjectService {
     public GroupReadModel createGroup(LocalDateTime deadline, int projectId) {
         if (config.getTemplate().isAllowMultipleTaskFromTemplate() == false
                 || taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)) {
-            throw new IllegalArgumentException("Something go wrong!");
+            throw new IllegalStateException("Only one undone group from project is allowed!");
         }
         GroupReadModel result = projectRepository.findById(projectId).map(project -> {
             var targetGroup = taskGroupService.createGroup(new GroupWriteModel());
