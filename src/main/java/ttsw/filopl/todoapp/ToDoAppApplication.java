@@ -9,7 +9,7 @@ import javax.validation.Validator;
 
 
 @SpringBootApplication
-public class ToDoAppApplication  {
+public class ToDoAppApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ToDoAppApplication.class, args);

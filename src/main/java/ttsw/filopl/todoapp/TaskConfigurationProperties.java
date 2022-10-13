@@ -1,46 +1,34 @@
 package ttsw.filopl.todoapp;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Created by T. Filo Zegarlicki on 02.09.2022
  **/
 
-@Component
-@EnableAutoConfiguration
+@Configuration
 @ConfigurationProperties("task")
 public class TaskConfigurationProperties {
     private Template template;
-
-    public TaskConfigurationProperties() {
-    }
-
-    public TaskConfigurationProperties(Template template) {
-        this.template = template;
-    }
-
-    public void setTemplate(Template template) {
-        this.template = template;
-    }
 
     public Template getTemplate() {
         return template;
     }
 
+    public void setTemplate(final Template template) {
+        this.template = template;
+    }
+
     public static class Template {
+        private boolean allowMultipleTasks;
 
-        @Autowired
-        private boolean allowMultipleTaskFromTemplate;
-
-        public boolean isAllowMultipleTaskFromTemplate() {
-            return allowMultipleTaskFromTemplate;
+        public boolean isAllowMultipleTasks() {
+            return allowMultipleTasks;
         }
 
-        public void setAllowMultipleTaskFromTemplate(boolean allowMultipleTaskFromTemplate) {
-            this.allowMultipleTaskFromTemplate = allowMultipleTaskFromTemplate;
+        public void setAllowMultipleTasks(final boolean allowMultipleTasks) {
+            this.allowMultipleTasks = allowMultipleTasks;
         }
     }
 }
