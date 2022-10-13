@@ -1,6 +1,5 @@
 package ttsw.filopl.todoapp.model.projection;
 
-import ttsw.filopl.todoapp.model.Task;
 import ttsw.filopl.todoapp.model.TaskGroup;
 
 import java.util.Set;
@@ -11,7 +10,6 @@ import java.util.stream.Collectors;
  **/
 
 public class GroupWriteModel {
-
     private String description;
     private Set<GroupTaskWriteModel> tasks;
 
@@ -19,7 +17,7 @@ public class GroupWriteModel {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -27,7 +25,7 @@ public class GroupWriteModel {
         return tasks;
     }
 
-    public void setTasks(Set<GroupTaskWriteModel> tasks) {
+    public void setTasks(final Set<GroupTaskWriteModel> tasks) {
         this.tasks = tasks;
     }
 
@@ -41,5 +39,4 @@ public class GroupWriteModel {
         );
         return result;
     }
-
 }

@@ -11,10 +11,8 @@ import ttsw.filopl.todoapp.TaskConfigurationProperties;
 
 
 @RestController
-public class InfoController {
-
+class InfoController {
     private DataSourceProperties dataSource;
-
     private TaskConfigurationProperties myProp;
 
     InfoController(final DataSourceProperties dataSource, final TaskConfigurationProperties myProp) {
@@ -29,6 +27,6 @@ public class InfoController {
 
     @GetMapping("/info/prop")
     boolean myProp() {
-        return myProp.getTemplate().isAllowMultipleTaskFromTemplate();
+        return myProp.getTemplate().isAllowMultipleTasks();
     }
 }

@@ -7,17 +7,14 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
-
 /**
  * Created by T. Filo Zegarlicki on 23.09.2022
  **/
 
 public class GroupReadModel {
-
     private String description;
-    /*
-       * Deadline form the latest task in group.
+    /**
+     * Deadline form the latest task in group.
      */
     private LocalDateTime deadline;
     private Set<GroupTaskReadModel> tasks;
@@ -37,7 +34,7 @@ public class GroupReadModel {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -45,7 +42,7 @@ public class GroupReadModel {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    public void setDeadline(final LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
@@ -53,7 +50,7 @@ public class GroupReadModel {
         return tasks;
     }
 
-    public void setTasks(Set<GroupTaskReadModel> tasks) {
+    public void setTasks(final Set<GroupTaskReadModel> tasks) {
         this.tasks = tasks;
     }
 }

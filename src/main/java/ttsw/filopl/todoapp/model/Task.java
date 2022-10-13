@@ -9,24 +9,19 @@ import java.time.LocalDateTime;
  **/
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "tasks")
 public class Task {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Task desc shouldnt`t be empty or null")
+    @NotBlank(message = "Task's description must not be empty")
     private String description;
     private boolean done;
-    @Column(name = "deadLine")
     private LocalDateTime deadline;
-
     @Embedded
     private Audit audit = new Audit();
-
     @ManyToOne
-    //@Column(name = "task_group_id")
+    @JoinColumn(name = "task_group_id")
     private TaskGroup group;
 
     public Task() {
@@ -36,12 +31,11 @@ public class Task {
         this.description = description;
         this.deadline = deadline;
     }
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(final int id) {
         this.id = id;
     }
 
@@ -49,7 +43,7 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(final String description) {
         this.description = description;
     }
 
@@ -57,7 +51,7 @@ public class Task {
         return done;
     }
 
-    public void setDone(boolean done) {
+    public void setDone(final boolean done) {
         this.done = done;
     }
 
@@ -65,7 +59,7 @@ public class Task {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    void setDeadline(final LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
@@ -73,11 +67,11 @@ public class Task {
         return group;
     }
 
-    public void setGroup(TaskGroup group) {
+    void setGroup(final TaskGroup group) {
         this.group = group;
     }
 
-    public void updatedFrom(final Task source) {
+    public void updateFrom(final Task source) {
         description = source.description;
         done = source.done;
         deadline = source.deadline;

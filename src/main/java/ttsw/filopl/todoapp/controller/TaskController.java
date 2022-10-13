@@ -4,13 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ttsw.filopl.todoapp.model.Task;
 import ttsw.filopl.todoapp.model.TaskRepository;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 /**
  * Created by T. Filo Zegarlicki on 29.08.2022
@@ -18,55 +19,47 @@ import java.net.URI;
 
 @RestController
 class TaskController {
-
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
-    private final TaskRepository taskRepository;
+    private final TaskRepository repository;
 
-    public TaskController(final TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    TaskController(final TaskRepository repository) {
+        this.repository = repository;
     }
 
     @PostMapping("/tasks")
     ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate) {
-        Task result = taskRepository.save(toCreate);
-        return ResponseEntity.created(URI.create("/" + result.getId() )).body(result);
+        Task result = repository.save(toCreate);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
     @GetMapping(value = "/tasks", params = {"!sort", "!page", "!size"})
-    ResponseEntity<?> readAllTask() {
-        logger.info("Custom pageAble");
-        return ResponseEntity.ok(taskRepository.findAll());
+    ResponseEntity<List<Task>> readAllTasks() {
+        logger.warn("Exposing all the tasks!");
+        return ResponseEntity.ok(repository.findAll());
     }
 
     @GetMapping("/tasks")
-    ResponseEntity<?> readAllTask(Pageable page) {
-        logger.warn("Exposing all task");
-        return ResponseEntity.ok(taskRepository.findAll(page).getContent());
+    ResponseEntity<List<Task>> readAllTasks(Pageable page) {
+        logger.info("Custom pageable");
+        return ResponseEntity.ok(repository.findAll(page).getContent());
     }
 
-
     @GetMapping("/tasks/{id}")
-    ResponseEntity<Task> readTask( @PathVariable int id) {
-        logger.info("Get task with id");
-        if(!taskRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return taskRepository.findById(id)
-                .map(task -> ResponseEntity.ok(task))
+    ResponseEntity<Task> readTask(@PathVariable int id) {
+        return repository.findById(id)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/tasks/{id}")
     ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate) {
-        logger.info("Update resorcues");
-        if(taskRepository.existsById(id)) {
+        if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        taskRepository.findById(id)
-                .ifPresent( task -> {
-                    task.updatedFrom(toUpdate);
-                    taskRepository.save(task);
+        repository.findById(id)
+                .ifPresent(task -> {
+                    task.updateFrom(toUpdate);
+                    repository.save(task);
                 });
         return ResponseEntity.noContent().build();
     }
@@ -74,19 +67,11 @@ class TaskController {
     @Transactional
     @PatchMapping("/tasks/{id}")
     public ResponseEntity<?> toggleTask(@PathVariable int id) {
-        if(taskRepository.existsById(id)) {
+        if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        taskRepository.findById(id)
+        repository.findById(id)
                 .ifPresent(task -> task.setDone(!task.isDone()));
-
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping("/good")
-    public String answer() {
-        return "working";
-    }
-
-
 }

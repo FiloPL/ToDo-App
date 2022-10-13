@@ -10,26 +10,26 @@ import java.time.LocalDateTime;
 
 public class GroupTaskReadModel {
     private String description;
-    private LocalDateTime deadline;
+    private boolean done;
 
-    public GroupTaskReadModel(Task source) {
+    GroupTaskReadModel(Task source) {
         description = source.getDescription();
-        deadline = source.getDeadline();
+        done = source.isDone();
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
-    public LocalDateTime getDeadline() {
-        return deadline;
+    public boolean isDone() {
+        return done;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
+    public void setDone(final boolean done) {
+        this.done = done;
     }
 }

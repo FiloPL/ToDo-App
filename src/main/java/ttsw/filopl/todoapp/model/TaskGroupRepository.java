@@ -7,8 +7,7 @@ import java.util.Optional;
  * Created by T. Filo Zegarlicki on 21.09.2022
  **/
 
-public  interface TaskGroupRepository {
-
+public interface TaskGroupRepository {
     List<TaskGroup> findAll();
 
     Optional<TaskGroup> findById(Integer id);

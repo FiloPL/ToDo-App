@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
  **/
 
 public class GroupTaskWriteModel {
-
     private String description;
     private LocalDateTime deadline;
 
@@ -17,7 +16,7 @@ public class GroupTaskWriteModel {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -25,12 +24,11 @@ public class GroupTaskWriteModel {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    public void setDeadline(final LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
-    public Task toTask() {
+    Task toTask() {
         return new Task(description, deadline);
-
     }
 }

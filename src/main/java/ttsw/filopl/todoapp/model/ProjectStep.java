@@ -9,25 +9,22 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "project_steps")
-public class ProjectSteps {
-
+public class ProjectStep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Project steps shouldnt`t be empty or null")
+    @NotBlank(message = "Project step's description must not be empty")
     private String description;
-
-    private int daysToDeadLine;
-
+    private int daysToDeadline;
     @ManyToOne
-    //@JoinColumn(name = "project_id");
+//    @JoinColumn(name = "project_id")
     private Project project;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(final int id) {
         this.id = id;
     }
 
@@ -35,23 +32,23 @@ public class ProjectSteps {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(final String description) {
         this.description = description;
     }
 
-    public int getDaysToDeadLine() {
-        return daysToDeadLine;
+    public int getDaysToDeadline() {
+        return daysToDeadline;
     }
 
-    public void setDaysToDeadLine(int daysToDeadLine) {
-        this.daysToDeadLine = daysToDeadLine;
+    void setDaysToDeadline(final int daysToDeadline) {
+        this.daysToDeadline = daysToDeadline;
     }
 
-    public Project getProject() {
+    Project getProject() {
         return project;
     }
 
-    public void setProject(Project project) {
+    void setProject(final Project project) {
         this.project = project;
     }
 }

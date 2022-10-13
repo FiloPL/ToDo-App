@@ -14,18 +14,13 @@ public class TaskGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Task groups shouldnt`t be empty or null")
+    @NotBlank(message = "Task group's description must not be empty")
     private String description;
     private boolean done;
-
-    @Embedded
-    private Audit audit = new Audit();
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Task> tasks;
-
     @ManyToOne
-    //@Column(name = "projetct_id")
+    //@JoinColumn(name = "project_id")
     private Project project;
 
     public TaskGroup() {
@@ -35,7 +30,7 @@ public class TaskGroup {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(final int id) {
         this.id = id;
     }
 
@@ -43,7 +38,7 @@ public class TaskGroup {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -51,7 +46,7 @@ public class TaskGroup {
         return done;
     }
 
-    public void setDone(boolean done) {
+    public void setDone(final boolean done) {
         this.done = done;
     }
 
@@ -59,7 +54,7 @@ public class TaskGroup {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
+    public void setTasks(final Set<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -67,7 +62,8 @@ public class TaskGroup {
         return project;
     }
 
-    public void setProject(Project project) {
+    public void setProject(final Project project) {
         this.project = project;
     }
 }
+

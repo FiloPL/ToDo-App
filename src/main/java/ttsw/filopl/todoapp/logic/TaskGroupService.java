@@ -1,7 +1,5 @@
 package ttsw.filopl.todoapp.logic;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 import ttsw.filopl.todoapp.model.TaskGroup;
 import ttsw.filopl.todoapp.model.TaskGroupRepository;
 import ttsw.filopl.todoapp.model.TaskRepository;
@@ -15,10 +13,7 @@ import java.util.stream.Collectors;
  * Created by T. Filo Zegarlicki on 21.09.2022
  **/
 
-@Service
-@RequestScope
 public class TaskGroupService {
-
     private TaskGroupRepository repository;
     private TaskRepository taskRepository;
 
@@ -27,7 +22,7 @@ public class TaskGroupService {
         this.taskRepository = taskRepository;
     }
 
-    public GroupReadModel createGroup(GroupWriteModel source){
+    public GroupReadModel createGroup(final GroupWriteModel source) {
         TaskGroup result = repository.save(source.toGroup());
         return new GroupReadModel(result);
     }
@@ -39,14 +34,12 @@ public class TaskGroupService {
     }
 
     public void toggleGroup(int groupId) {
-        if(repository.existsByDoneIsFalseAndProject_Id(groupId)) {
-            throw new IllegalStateException("group have undone task");
+        if (taskRepository.existsByDoneIsFalseAndGroup_Id(groupId)) {
+            throw new IllegalStateException("Group has undone tasks. Done all the tasks first");
         }
-
-        TaskGroup result = repository.findById(groupId).
-                orElseThrow( () -> new IllegalStateException( "Task Group with given ID not found"));
+        TaskGroup result = repository.findById(groupId)
+                .orElseThrow(() -> new IllegalArgumentException("TaskGroup with given id not found"));
         result.setDone(!result.isDone());
         repository.save(result);
     }
-
 }
