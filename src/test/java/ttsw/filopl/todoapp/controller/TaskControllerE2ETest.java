@@ -37,7 +37,7 @@ class TaskControllerE2ETest {
         repo.save(new Task("bar", LocalDateTime.now()));
 
         // when
-        Task[] result = restTemplate.getForObject("http://localhost:" + port + "/tasks", Task[].class);
+        Task[] result = restTemplate.getForObject("http://localhost:" + port + "/tasks/", Task[].class);
 
         // then
         assertThat(result).hasSize(2);
