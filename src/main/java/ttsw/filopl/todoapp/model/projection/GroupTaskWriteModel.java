@@ -1,6 +1,7 @@
 package ttsw.filopl.todoapp.model.projection;
 
 import ttsw.filopl.todoapp.model.Task;
+import ttsw.filopl.todoapp.model.TaskGroup;
 
 import java.time.LocalDateTime;
 
@@ -28,7 +29,7 @@ public class GroupTaskWriteModel {
         this.deadline = deadline;
     }
 
-    Task toTask() {
-        return new Task(description, deadline);
+    Task toTask(final TaskGroup group) {
+        return new Task(description, deadline, group);
     }
 }
