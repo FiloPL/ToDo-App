@@ -35,7 +35,7 @@ class TaskControllerIntegrationTest {
         int id = repo.save(new Task("foo", LocalDateTime.now())).getId();
 
         // when + then
-       mockMvc.perform(get("/" + id))
+       mockMvc.perform(get("/tasks/" + id))
                .andExpect(status().is2xxSuccessful());
     }
 }
