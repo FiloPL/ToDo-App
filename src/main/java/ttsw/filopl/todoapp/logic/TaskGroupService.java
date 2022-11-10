@@ -1,5 +1,6 @@
 package ttsw.filopl.todoapp.logic;
 
+import ttsw.filopl.todoapp.model.Project;
 import ttsw.filopl.todoapp.model.TaskGroup;
 import ttsw.filopl.todoapp.model.TaskGroupRepository;
 import ttsw.filopl.todoapp.model.TaskRepository;
@@ -23,7 +24,11 @@ public class TaskGroupService {
     }
 
     public GroupReadModel createGroup(final GroupWriteModel source) {
-        TaskGroup result = repository.save(source.toGroup());
+        return createGroup(source, null);
+    }
+
+    GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+        TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 

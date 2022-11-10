@@ -7,6 +7,7 @@ import ttsw.filopl.todoapp.model.TaskGroupRepository;
 import ttsw.filopl.todoapp.model.projection.GroupReadModel;
 import ttsw.filopl.todoapp.model.projection.GroupTaskWriteModel;
 import ttsw.filopl.todoapp.model.projection.GroupWriteModel;
+import ttsw.filopl.todoapp.model.projection.ProjectWriteModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,8 +35,8 @@ public class ProjectService {
         return repository.findAll();
     }
 
-    public Project save(final Project toSave) {
-        return repository.save(toSave);
+    public Project save(final ProjectWriteModel toSave) {
+        return repository.save(toSave.toProject());
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, int projectId) {
