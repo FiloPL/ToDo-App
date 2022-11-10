@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import ttsw.filopl.todoapp.model.Task;
 import ttsw.filopl.todoapp.model.TaskRepository;
 
+import java.util.List;
+
 /**
  * Created by T. Filo Zegarlicki on 27.08.2022
  **/
@@ -19,4 +21,7 @@ interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Integer>
 
     @Override
     boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
+
+    @Override
+    List<Task> findAllByGroup_Id(Integer groupId);
 }
